@@ -9,7 +9,7 @@ from noticeboard.permissions import AllowNoticeContact
 from .serializers import (
     ContactsSerializer, ContactCreateSerializer,
     UpdateListSerializer, UpdateDetailSerializer, UpdateCreateSerializer,
-    SuggestionListSerializer, SuggestionDetailSerializer, SuggestionCreateSerializer
+    SuggestionListSerializer, SuggestionVoteSerializer,SuggestionDetailSerializer, SuggestionCreateSerializer
     )
 
 class ContactsListView(generics.ListAPIView):
@@ -160,7 +160,7 @@ class SuggestionUpvoteView(generics.GenericAPIView):
     # pylint: disable=no-member
     queryset = Suggestion.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = SuggestionDetailSerializer
+    serializer_class = SuggestionVoteSerializer
 
     def get(self, request, pk):
         suggestion = get_object_or_404(self.queryset,id=pk)
@@ -183,7 +183,7 @@ class SuggestionDownvoteView(generics.GenericAPIView):
     # pylint: disable=no-member
     queryset = Suggestion.objects.all()
     permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = SuggestionDetailSerializer
+    serializer_class = SuggestionVoteSerializer
 
     def get(self, request, pk):
         suggestion = get_object_or_404(self.queryset,id=pk)

@@ -61,6 +61,13 @@ class SuggestionListSerializer(serializers.ModelSerializer):
         fields=("id","title","date")
 
 class SuggestionDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Suggestion
+        read_only_fields = ("id", "author", "upvotes", "downvotes")
+        fields = ("id", "title", "description", "author",
+                  "date", "upvotes", "downvotes")
+
+class SuggestionVoteSerializer(serializers.ModelSerializer):
     has_voted = serializers.SerializerMethodField()
 
     def get_has_voted(self, obj):
